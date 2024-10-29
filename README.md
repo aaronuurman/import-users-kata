@@ -6,7 +6,7 @@ The kata consists on reading, parsing & print data from different sources (csv &
 
 ---
 
-A college from your company created a simple script that read users,
+A colleague from your company created a simple script that read users,
 unfortunately that person left the company a few months ago, and you need to
 change the functionality, but you find out the current code gets more and more
 tangled over the time. You talked to your boss, and he decided to give you time
