@@ -2,22 +2,19 @@
 
 > This is a refactoring kata 🔧
 
-The kata consists of reading, parsing & print data from different sources (csv & network).
+The kata consists of reading, parsing & printing data from different sources (csv & network).
 
 ---
 
-A colleague from your company created a simple script that reads users,
-unfortunately that person left the company a few months ago, and you need to
-change the functionality, but you find out the current code gets more and more
-tangled over the time. You talked to your boss, and he decided to give you time
-to improve it.
+A former colleague created a simple script to read user information. However, after they left the company, the code became more challenging to maintain as modifications were made. You’ve recently made some updates, but the script has become even harder to work with. Moreover, you’ve noticed a specific issue: the printed dates of birth are incorrect and need fixing.
 
-The current code is very basic but no one feels comfortable or wants to modify it.
+You discussed the situation with your manager, who has agreed to give you time to refactor the script for better readability and maintainability, and to resolve the date of birth display issue. The current code is straightforward but overly tangled, and team members are hesitant to make further changes.
 
-- Improve the current code, but maintaining the original behaviour
-- Split logic into different functions/classes if necessary
-- Consider testing ("black-box" & "white-box")
-- Have fun!
+- Refactor the current code for clarity and maintainability, ensuring the original behavior is preserved.
+- Correct the date of birth display to ensure accuracy.
+- Modularize the code by splitting logic into functions or classes where needed.
+- Implement tests to verify functionality.
+- Enjoy the process and embrace the challenge!
 
 ### ⏩ Next iteration
 
