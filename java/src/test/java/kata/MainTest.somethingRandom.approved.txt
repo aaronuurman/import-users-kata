@@ -1,0 +1,17 @@
+*****************************************************************************************************************************************
+* ID           * COUNTRY      * ZIP        * NAME                 * DOB                      * EMAIL                                    *
+*****************************************************************************************************************************************
+* 200189617246 * Germany      * 10780      * Lukas Schmidt        * 1997-02-19T04:10:00.000Z * lukas.shmidt@example.com                 *
+* 200189016257 * Germany      * 15010      * Maria Fischer        * 1991-08-06T09:20:00.000Z * maria.fischer@example.com                *
+* 230573109005 * Spain        * 15340      * Luis Sanchez         * 2001-06-22T04:21:00.000Z * luis.sanchez@example.com                 *
+* 230854119034 * Italy        * 38019      * Elio Pausini         * 1976-04-11T04:20:00.000Z * elio.pausini@example.com                 *
+* 270054311737 * India        * 82068      * Mitesh Kumari        * 1996-12-30T04:23:00.000Z * mitesh.kumari@example.com                *
+* 202160712259 * Germany      * 8025       * Elena Mueller        * 1992-02-02T02:10:00.000Z * elena.muller@example.com                 *
+* 270554319031 * India        * 82120      * Natasha Shah         * 1989-01-10T04:21:00.000Z * natasha.shah@example.com                 *
+* 100000000001 * Switzerland  * 1798       * Benedikt Brun        * 1969-07-27T07:01:48.655Z * benedikt.brun@example.com                *
+* 100000000002 * Ireland      * 29007      * Kurt Price           * 1967-08-26T20:06:19.610Z * kurt.price@example.com                   *
+* 100000000003 * Switzerland  * 6650       * Odette Blanc         * 1993-06-24T08:38:42.529Z * odette.blanc@example.com                 *
+* 100000000004 * Finland      * 68137      * Luukas Aalto         * 1948-04-26T23:15:28.140Z * luukas.aalto@example.com                 *
+* 100000000005 * Serbia       * 31632      * Magdalena Subašić    * 1945-11-09T22:42:02.775Z * magdalena.subasic@example.com            *
+*****************************************************************************************************************************************
+12 users in total!
