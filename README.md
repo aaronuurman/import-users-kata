@@ -12,14 +12,19 @@ You discussed the situation with your manager, who has agreed to give you time t
 
 - Refactor the current code for clarity and maintainability, ensuring the original behavior is preserved.
 - Correct the date of birth display to ensure accuracy.
-- Modularize the code by splitting logic into functions or classes where needed.
-- Implement tests to verify functionality.
-- Enjoy the process and embrace the challenge!
 
 ### ⏩ Next iteration
 
 Instead of displaying the output through terminal, store the information
 somewhere else, like a text file or a SQLite database.
+
+### ⏩ Next iteration
+
+We've another data source, a SQLite database file named users-source.db.
+Please update the code to also read data from there.
+
+JDBC url: `jdbc:sqlite:file:users-source.db`
+
 
 # Instructions
 

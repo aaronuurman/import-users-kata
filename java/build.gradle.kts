@@ -8,7 +8,10 @@ repositories {
 }
 
 dependencies {
-    api(libs.json)
+    runtimeOnly(libs.sqlite)
+
+    implementation(libs.json)
+
     testImplementation(libs.junit)
     testImplementation(libs.approvaltests)
 }

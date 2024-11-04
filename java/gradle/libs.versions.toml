@@ -4,8 +4,10 @@
 com-approvaltests-approvaltests = "24.8.0"
 org-json-json = "20231013"
 org-junit-jupiter-junit-jupiter = "5.11.3"
+sqlite = '3.47.0.0'
 
 [libraries]
+sqlite = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite" }
 approvaltests = { module = "com.approvaltests:approvaltests", version.ref = "com-approvaltests-approvaltests" }
 json = { module = "org.json:json", version.ref = "org-json-json" }
 junit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "org-junit-jupiter-junit-jupiter" }
