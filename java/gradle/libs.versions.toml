@@ -1,0 +1,11 @@
+# https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
+
+[versions]
+com-approvaltests-approvaltests = "24.8.0"
+org-json-json = "20231013"
+org-junit-jupiter-junit-jupiter = "5.11.3"
+
+[libraries]
+approvaltests = { module = "com.approvaltests:approvaltests", version.ref = "com-approvaltests-approvaltests" }
+json = { module = "org.json:json", version.ref = "org-json-json" }
+junit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "org-junit-jupiter-junit-jupiter" }

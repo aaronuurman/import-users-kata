@@ -52,7 +52,7 @@ node run.js
 From `java` folder, run:
 
 ```bash
-mvn compile exec:java -Dexec.mainClass="src.Main"
+gradlew run
 ```
 
 ### 🎁 Kotlin
@@ -71,4 +71,3 @@ From `python` folder, run:
 ```bash
 python3 main.py
 ```
-

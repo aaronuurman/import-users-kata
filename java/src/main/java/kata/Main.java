@@ -1,4 +1,4 @@
-package src;
+package kata;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -9,7 +9,7 @@ import java.util.*;
 
 public class Main {
 
-  private static final String USER_URL = "https://randomuser.me/api/?inc=gender,name,email,location&results=5&seed=a9b25cd955e2037h";
+  private static final String USER_URL = "https://randomuser.me/api/?inc=gender,name,email,location,dob&results=5&seed=a9b25cd955e2037h";
 
   public static void main(String[] args) throws Exception {
     // Parse CSV file
