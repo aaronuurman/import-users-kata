@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.math.BigInteger;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,7 +17,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        List<User> users = usersFromCsv();
+        List<User> users = CsvProvider.usersFromCsv();
         List<User> usersFromApi = usersFromApi();
 
         List<User> allUsers = new ArrayList<>(users);
@@ -37,12 +36,6 @@ public class Main {
         return usersFromApi;
     }
 
-    private static List<User> usersFromCsv() {
-        List<String[]> usersAsStringArray = getUsers();
-        List<User> users = mapToUser(usersAsStringArray);
-        return users;
-    }
-
     private static void printUsers(List<User> list) {
         for (User item : list) {
             System.out.println(
@@ -54,19 +47,6 @@ public class Main {
                             item.getBirthday(),
                             item.getEmail()));
         }
-    }
-
-    private static List<User> mapToUser(List<String[]> users) {
-        return users.stream()
-                .map(user -> new User.Builder()
-                        .id(user[0])
-                        .name(user[2])
-                        .country(user[3])
-                        .zip(user[4])
-                        .email(user[5])
-                        .birthday(ZonedDateTime.parse(user[6]).toLocalDate())
-                        .build())
-                .toList();
     }
 
     static void printHeader() {
@@ -120,25 +100,4 @@ public class Main {
         return jsonObject.getJSONArray("results");
     }
 
-    private static List<String[]> getUsers() {
-        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        InputStream is = classloader.getResourceAsStream("users.csv");
-        if (is == null) {
-            return Collections.emptyList();
-        }
-        ArrayList<String[]> usersAsStringArray = new ArrayList<>();
-        Scanner csvFile = new Scanner(is);
-        while (csvFile.hasNextLine()) {
-            String line = csvFile.nextLine();
-            // fields: ID, gender, Name ,country, postcode, email, Birthdate
-            String[] attributes = line.split(",");
-            if (attributes.length == 0) {
-                continue;
-            }
-            usersAsStringArray.add(attributes);
-        }
-        usersAsStringArray.removeFirst(); // Remove header column
-
-        return usersAsStringArray;
-    }
 }
