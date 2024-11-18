@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.math.BigInteger;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,7 +17,7 @@ public class Main {
     private static final String USER_URL = "https://randomuser.me/api/?inc=gender,name,email,location,dob&results=5&seed=a1b25cd956e2038h";
 
     public static void main(String[] args) throws Exception {
-        ArrayList<String[]> usersAsStringArray = getUsers();
+        List<String[]> usersAsStringArray = getUsers();
         List<User> users = mapToUser(usersAsStringArray);
 
         JSONArray usersFromApiAsJson = getUsersFromApi();
@@ -45,7 +46,7 @@ public class Main {
         }
     }
 
-    private static List<User> mapToUser(ArrayList<String[]> users) {
+    private static List<User> mapToUser(List<String[]> users) {
         return users.stream()
                 .map(user -> new User.Builder()
                         .id(user[0])
@@ -109,10 +110,12 @@ public class Main {
         return jsonObject.getJSONArray("results");
     }
 
-    private static ArrayList<String[]> getUsers() {
-        // Parse CSV file
+    private static List<String[]> getUsers() {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         InputStream is = classloader.getResourceAsStream("users.csv");
+        if (is == null) {
+            return Collections.emptyList();
+        }
         ArrayList<String[]> usersAsStringArray = new ArrayList<>();
         Scanner csvFile = new Scanner(is);
         while (csvFile.hasNextLine()) {
@@ -124,7 +127,7 @@ public class Main {
             }
             usersAsStringArray.add(attributes);
         }
-        usersAsStringArray.remove(0); // Remove header column
+        usersAsStringArray.removeFirst(); // Remove header column
 
         return usersAsStringArray;
     }
