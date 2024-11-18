@@ -9,11 +9,17 @@ import java.util.Scanner;
 
 class CsvReader {
 
+    public String name;
+
+    public CsvReader(String name) {
+        this.name = name;
+    }
+
     public List<User> getUsers() {
         return mapToUser(readCsvFile());
     }
 
-    private static List<User> mapToUser(List<String[]> users) {
+    private List<User> mapToUser(List<String[]> users) {
         return users.stream()
                 .map(user -> new User.Builder()
                         .id(user[0])
@@ -26,9 +32,9 @@ class CsvReader {
                 .toList();
     }
 
-    private static List<String[]> readCsvFile() {
+    private List<String[]> readCsvFile() {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        InputStream is = classloader.getResourceAsStream("users.csv");
+        InputStream is = classloader.getResourceAsStream(name);
         if (is == null) {
             return Collections.emptyList();
         }
