@@ -14,7 +14,7 @@ import java.util.Scanner;
 class ApiClient {
     private static final String USER_URL = "https://randomuser.me/api/?inc=gender,name,email,location,dob&results=5&seed=a1b25cd956e2038h";
 
-    static List<User> getUsers() throws IOException {
+    public List<User> getUsers() throws IOException {
         return parseJson(getUsersFromApi());
     }
 

@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 class CsvReader {
 
-    static List<User> getUsers() {
+    public List<User> getUsers() {
         return mapToUser(readCsvFile());
     }
 

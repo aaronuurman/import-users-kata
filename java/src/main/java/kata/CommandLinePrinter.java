@@ -3,7 +3,7 @@ package kata;
 import java.util.List;
 
 class CommandLinePrinter {
-    static void SystemOutProcessor(List<User> allUsers) {
+    public void print(List<User> allUsers) {
         printHeader();
         printUsers(allUsers);
         printSeparator();
