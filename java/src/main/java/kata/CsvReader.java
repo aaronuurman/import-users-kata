@@ -7,9 +7,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-class CsvProvider {
+class CsvReader {
 
-    static List<User> usersFromCsv() {
+    static List<User> getUsers() {
         return mapToUser(readCsvFile());
     }
 

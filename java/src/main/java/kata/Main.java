@@ -7,8 +7,8 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        List<User> users = CsvProvider.usersFromCsv();
-        List<User> usersFromApi = ApiProvider.usersFromApi();
+        List<User> users = CsvReader.getUsers();
+        List<User> usersFromApi = ApiClient.getUsers();
 
         List<User> allUsers = new ArrayList<>(users);
         allUsers.addAll(usersFromApi);
