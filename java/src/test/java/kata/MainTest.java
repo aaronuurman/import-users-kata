@@ -35,7 +35,7 @@ public class MainTest {
       // Tell Java to use your special stream
       System.setOut(ps);
       // Print some output: goes to your special stream
-      Main.printHeader();
+      CommandLinePrinter.printHeader();
       // Put things back
       System.out.flush();
       System.setOut(old);
