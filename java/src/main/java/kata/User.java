@@ -10,7 +10,6 @@ class User {
     private String zip;
     private String name;
     private LocalDate birthday;
-    private String birthday2;
     private String email;
 
     private User(Builder builder) {
@@ -19,7 +18,6 @@ class User {
         this.zip = Objects.requireNonNull(builder.zip);
         this.name = Objects.requireNonNull(builder.name);
         this.birthday = Objects.requireNonNull(builder.birthday);
-        this.birthday2 = Objects.requireNonNull(builder.birthday2);
         this.email = Objects.requireNonNull(builder.email);
     }
 
@@ -43,10 +41,6 @@ class User {
         return birthday;
     }
 
-    public String getBirthday2() {
-        return birthday2;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -58,7 +52,6 @@ class User {
         private String zip;
         private String name;
         private LocalDate birthday;
-        private String birthday2;
         private String email;
 
         public Builder id(String id) {
@@ -83,11 +76,6 @@ class User {
 
         public Builder birthday(LocalDate birthday) {
             this.birthday = birthday;
-            return this;
-        }
-
-        public Builder birthday2(String birthday) {
-            this.birthday2 = birthday;
             return this;
         }
 

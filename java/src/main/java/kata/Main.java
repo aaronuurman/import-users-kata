@@ -26,15 +26,8 @@ public class Main {
         List<User> allUsers = new ArrayList<>(users);
         allUsers.addAll(usersFromApi);
 
-        /**
-         * csv_providers ArrayList<id: number,
-         *       email: string
-         *       first_name: string
-         *       last_name: string>
-         */
-        usersAsStringArray.addAll(usersFromApiAsStringArray); // merge arrays
+        usersAsStringArray.addAll(usersFromApiAsStringArray);
 
-        // Print users
         printHeader();
         printUsers(allUsers);
         System.out.println(
@@ -50,7 +43,7 @@ public class Main {
                     item.getCountry(),
                     item.getZip(),
                     item.getName(),
-                    item.getBirthday2(),
+                    item.getBirthday(),
                     item.getEmail()));
         }
     }
@@ -65,23 +58,9 @@ public class Main {
                     .zip(user[4])
                     .email(user[5])
                     .birthday(ZonedDateTime.parse(user[6]).toLocalDate())
-                    .birthday2(user[6])
                     .build());
         }
         return list;
-    }
-
-    private static void printUsers(ArrayList<String[]> internalUsers) {
-        for (String[] item : internalUsers) {
-            System.out.println(String.format(
-                    "* %-12s * %-12s * %-10s * %-20s * %-24s * %-40s *",
-                    item[0],
-                    item[3],
-                    item[4],
-                    item[2],
-                    item[6],
-                    item[5]));
-        }
     }
 
     static void printHeader() {
