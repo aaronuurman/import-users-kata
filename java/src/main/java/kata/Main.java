@@ -10,7 +10,6 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class Main {
 
@@ -21,19 +20,16 @@ public class Main {
         List<User> users = mapToUser(usersAsStringArray);
 
         JSONArray usersFromApiAsJson = getUsersFromApi();
-        ArrayList<String[]> usersFromApiAsStringArray = parseUsers(usersFromApiAsJson);
-        List<User> usersFromApi = mapToUser(usersFromApiAsStringArray);
+        List<User> usersFromApi = parseUsers(usersFromApiAsJson);
 
         List<User> allUsers = new ArrayList<>(users);
         allUsers.addAll(usersFromApi);
-
-        usersAsStringArray.addAll(usersFromApiAsStringArray);
 
         printHeader();
         printUsers(allUsers);
         System.out.println(
                 "*****************************************************************************************************************************************");
-        System.out.println(usersAsStringArray.size() + " users in total!");
+        System.out.println(allUsers.size() + " users in total!");
     }
 
     private static void printUsers(List<User> list) {
@@ -77,27 +73,25 @@ public class Main {
                 "*****************************************************************************************************************************************");
     }
 
-    private static ArrayList<String[]> parseUsers(JSONArray externalUsersJson) {
-        BigInteger j = new BigInteger("100000000000");
-        ArrayList<String[]> externalUsers = new ArrayList<>();
+    private static List<User> parseUsers(JSONArray externalUsersJson) {
+        BigInteger initialId = new BigInteger("100000000000");
+        ArrayList<User> users = new ArrayList<>();
         for (int i = 0; i < externalUsersJson.length(); i++) {
-            j = j.add(new BigInteger("1"));
-            externalUsers.add(new String[]{
-                    j.toString(), // id
-                    externalUsersJson.getJSONObject(i).getString("gender"),
-                    externalUsersJson.getJSONObject(i).getJSONObject("name").getString("first") + " "
-                    + externalUsersJson
-                            .getJSONObject(i)
-                            .getJSONObject("name")
-                            .getString("last"),
-                    externalUsersJson.getJSONObject(i).getJSONObject("location").getString("country"),
-                    String.valueOf(
-                            externalUsersJson.getJSONObject(i).getJSONObject("location").get("postcode")),
-                    externalUsersJson.getJSONObject(i).getString("email"),
-                    externalUsersJson.getJSONObject(i).getJSONObject("dob").getString("date"),
-            });
+            initialId = initialId.add(new BigInteger("1"));
+            users.add(new User.Builder()
+                    .id(initialId.toString())
+                    .name(externalUsersJson.getJSONObject(i).getJSONObject("name").getString("first") + " "
+                          + externalUsersJson
+                                  .getJSONObject(i)
+                                  .getJSONObject("name")
+                                  .getString("last"))
+                    .country(externalUsersJson.getJSONObject(i).getJSONObject("location").getString("country"))
+                    .zip(externalUsersJson.getJSONObject(i).getJSONObject("location").get("postcode") + "")
+                    .email(externalUsersJson.getJSONObject(i).getString("email"))
+                    .birthday(ZonedDateTime.parse(externalUsersJson.getJSONObject(i).getJSONObject("dob").getString("date")).toLocalDate())
+                    .build());
         }
-        return externalUsers;
+        return users;
     }
 
     private static JSONArray getUsersFromApi() throws IOException {
