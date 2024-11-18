@@ -17,11 +17,9 @@ public class Main {
     private static final String USER_URL = "https://randomuser.me/api/?inc=gender,name,email,location,dob&results=5&seed=a1b25cd956e2038h";
 
     public static void main(String[] args) throws Exception {
-        List<String[]> usersAsStringArray = getUsers();
-        List<User> users = mapToUser(usersAsStringArray);
 
-        JSONArray usersFromApiAsJson = getUsersFromApi();
-        List<User> usersFromApi = parseUsers(usersFromApiAsJson);
+        List<User> users = usersFromCsv();
+        List<User> usersFromApi = usersFromApi();
 
         List<User> allUsers = new ArrayList<>(users);
         allUsers.addAll(usersFromApi);
@@ -31,6 +29,18 @@ public class Main {
         System.out.println(
                 "*****************************************************************************************************************************************");
         System.out.println(allUsers.size() + " users in total!");
+    }
+
+    private static List<User> usersFromApi() throws IOException {
+        JSONArray usersFromApiAsJson = getUsersFromApi();
+        List<User> usersFromApi = parseUsers(usersFromApiAsJson);
+        return usersFromApi;
+    }
+
+    private static List<User> usersFromCsv() {
+        List<String[]> usersAsStringArray = getUsers();
+        List<User> users = mapToUser(usersAsStringArray);
+        return users;
     }
 
     private static void printUsers(List<User> list) {
