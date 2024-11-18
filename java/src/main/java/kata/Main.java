@@ -10,6 +10,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -37,30 +38,28 @@ public class Main {
 
     private static void printUsers(List<User> list) {
         for (User item : list) {
-            System.out.println(String.format(
-                    "* %-12s * %-12s * %-10s * %-20s * %-24s * %-40s *",
-                    item.getId(),
-                    item.getCountry(),
-                    item.getZip(),
-                    item.getName(),
-                    item.getBirthday(),
-                    item.getEmail()));
+            System.out.println(
+                    String.format("* %-12s * %-12s * %-10s * %-20s * %-24s * %-40s *",
+                            item.getId(),
+                            item.getCountry(),
+                            item.getZip(),
+                            item.getName(),
+                            item.getBirthday(),
+                            item.getEmail()));
         }
     }
 
     private static List<User> mapToUser(ArrayList<String[]> users) {
-        List<User> list = new ArrayList<>();
-        for (String[] user : users) {
-            list.add(new User.Builder()
-                    .id(user[0])
-                    .name(user[2])
-                    .country(user[3])
-                    .zip(user[4])
-                    .email(user[5])
-                    .birthday(ZonedDateTime.parse(user[6]).toLocalDate())
-                    .build());
-        }
-        return list;
+        return users.stream()
+                .map(user -> new User.Builder()
+                        .id(user[0])
+                        .name(user[2])
+                        .country(user[3])
+                        .zip(user[4])
+                        .email(user[5])
+                        .birthday(ZonedDateTime.parse(user[6]).toLocalDate())
+                        .build())
+                .toList();
     }
 
     static void printHeader() {
