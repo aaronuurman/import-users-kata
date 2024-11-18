@@ -6,7 +6,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -14,11 +16,15 @@ public class Main {
     private static final String USER_URL = "https://randomuser.me/api/?inc=gender,name,email,location,dob&results=5&seed=a1b25cd956e2038h";
 
     public static void main(String[] args) throws Exception {
-        ArrayList<String[]> users = getUsers();
+        ArrayList<String[]> usersAsStringArray = getUsers();
+        List<User> users = mapToUser(usersAsStringArray);
 
-        JSONArray usersFromRandomUserApi = getUsersFromRandomUserMe();
-        ArrayList<String[]> users2 = parseUsers(usersFromRandomUserApi);
+        JSONArray usersFromApiAsJson = getUsersFromApi();
+        ArrayList<String[]> usersFromApiAsStringArray = parseUsers(usersFromApiAsJson);
+        List<User> usersFromApi = mapToUser(usersFromApiAsStringArray);
 
+        List<User> allUsers = new ArrayList<>(users);
+        allUsers.addAll(usersFromApi);
 
         /**
          * csv_providers ArrayList<id: number,
@@ -26,14 +32,43 @@ public class Main {
          *       first_name: string
          *       last_name: string>
          */
-        users.addAll(users2); // merge arrays
+        usersAsStringArray.addAll(usersFromApiAsStringArray); // merge arrays
 
         // Print users
         printHeader();
-        printUsers(users);
+        printUsers(allUsers);
         System.out.println(
                 "*****************************************************************************************************************************************");
-        System.out.println(users.size() + " users in total!");
+        System.out.println(usersAsStringArray.size() + " users in total!");
+    }
+
+    private static void printUsers(List<User> list) {
+        for (User item : list) {
+            System.out.println(String.format(
+                    "* %-12s * %-12s * %-10s * %-20s * %-24s * %-40s *",
+                    item.getId(),
+                    item.getCountry(),
+                    item.getZip(),
+                    item.getName(),
+                    item.getBirthday2(),
+                    item.getEmail()));
+        }
+    }
+
+    private static List<User> mapToUser(ArrayList<String[]> users) {
+        List<User> list = new ArrayList<>();
+        for (String[] user : users) {
+            list.add(new User.Builder()
+                    .id(user[0])
+                    .name(user[2])
+                    .country(user[3])
+                    .zip(user[4])
+                    .email(user[5])
+                    .birthday(ZonedDateTime.parse(user[6]).toLocalDate())
+                    .birthday2(user[6])
+                    .build());
+        }
+        return list;
     }
 
     private static void printUsers(ArrayList<String[]> internalUsers) {
@@ -87,7 +122,7 @@ public class Main {
         return externalUsers;
     }
 
-    private static JSONArray getUsersFromRandomUserMe() throws IOException {
+    private static JSONArray getUsersFromApi() throws IOException {
         // Parse URL content
         String url = USER_URL;
         String command = "curl -X GET " + url;
@@ -109,7 +144,7 @@ public class Main {
         // Parse CSV file
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         InputStream is = classloader.getResourceAsStream("users.csv");
-        ArrayList<String[]> csv_providers = new ArrayList<>();
+        ArrayList<String[]> usersAsStringArray = new ArrayList<>();
         Scanner csvFile = new Scanner(is);
         while (csvFile.hasNextLine()) {
             String line = csvFile.nextLine();
@@ -118,9 +153,10 @@ public class Main {
             if (attributes.length == 0) {
                 continue;
             }
-            csv_providers.add(attributes);
+            usersAsStringArray.add(attributes);
         }
-        csv_providers.remove(0); // Remove header column
-        return csv_providers;
+        usersAsStringArray.remove(0); // Remove header column
+
+        return usersAsStringArray;
     }
 }
