@@ -95,21 +95,18 @@ public class Main {
     }
 
     private static JSONArray getUsersFromApi() throws IOException {
-        // Parse URL content
-        String url = USER_URL;
-        String command = "curl -X GET " + url;
+        String command = "curl -X GET " + USER_URL;
         ProcessBuilder processBuilder = new ProcessBuilder(command.split(" "));
         Process process = processBuilder.start();
         InputStream processInputStream = process.getInputStream();
         Scanner webProvider = new Scanner(processInputStream);
-        String result = "";
+        StringBuilder result = new StringBuilder();
         while (webProvider.hasNextLine()) {
-            result += webProvider.nextLine();
+            result.append(webProvider.nextLine());
         }
         webProvider.close();
-        JSONObject jsonObject = new JSONObject(result);
-        JSONArray results = jsonObject.getJSONArray("results");
-        return results;
+        JSONObject jsonObject = new JSONObject(result.toString());
+        return jsonObject.getJSONArray("results");
     }
 
     private static ArrayList<String[]> getUsers() {
