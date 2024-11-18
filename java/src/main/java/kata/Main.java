@@ -14,10 +14,11 @@ public class Main {
     private static final String USER_URL = "https://randomuser.me/api/?inc=gender,name,email,location,dob&results=5&seed=a1b25cd956e2038h";
 
     public static void main(String[] args) throws Exception {
-        ArrayList<String[]> internalUsers = getInternalUsers();
-        JSONArray externalUsersJson = getExternalUsers();
+        ArrayList<String[]> users = getUsers();
 
-        ArrayList<String[]> externalUsers = parseExternalUsers(externalUsersJson);
+        JSONArray usersFromRandomUserApi = getUsersFromRandomUserMe();
+        ArrayList<String[]> users2 = parseUsers(usersFromRandomUserApi);
+
 
         /**
          * csv_providers ArrayList<id: number,
@@ -25,14 +26,14 @@ public class Main {
          *       first_name: string
          *       last_name: string>
          */
-        internalUsers.addAll(externalUsers); // merge arrays
+        users.addAll(users2); // merge arrays
 
         // Print users
         printHeader();
-        printUsers(internalUsers);
+        printUsers(users);
         System.out.println(
                 "*****************************************************************************************************************************************");
-        System.out.println(internalUsers.size() + " users in total!");
+        System.out.println(users.size() + " users in total!");
     }
 
     private static void printUsers(ArrayList<String[]> internalUsers) {
@@ -63,7 +64,7 @@ public class Main {
                 "*****************************************************************************************************************************************");
     }
 
-    private static ArrayList<String[]> parseExternalUsers(JSONArray externalUsersJson) {
+    private static ArrayList<String[]> parseUsers(JSONArray externalUsersJson) {
         BigInteger j = new BigInteger("100000000000");
         ArrayList<String[]> externalUsers = new ArrayList<>();
         for (int i = 0; i < externalUsersJson.length(); i++) {
@@ -86,7 +87,7 @@ public class Main {
         return externalUsers;
     }
 
-    private static JSONArray getExternalUsers() throws IOException {
+    private static JSONArray getUsersFromRandomUserMe() throws IOException {
         // Parse URL content
         String url = USER_URL;
         String command = "curl -X GET " + url;
@@ -104,7 +105,7 @@ public class Main {
         return results;
     }
 
-    private static ArrayList<String[]> getInternalUsers() {
+    private static ArrayList<String[]> getUsers() {
         // Parse CSV file
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         InputStream is = classloader.getResourceAsStream("users.csv");
